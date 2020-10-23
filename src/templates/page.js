@@ -1,9 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
+import { Box } from 'grommet'
 import { Helmet } from 'react-helmet'
 import { get } from 'lodash/fp'
 import Img from 'gatsby-image'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import ContentfulRichText from '../components/ContentfulRichText'
 
 const PageTemplate = ({ data, location }) => {
@@ -12,10 +13,10 @@ const PageTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location}>
-      <div style={{ background: '#fff' }}>
-        <Helmet title={`${page.title} | ${siteTitle}`} />
-      </div>
-      <ContentfulRichText json={page.content.json} />
+      <Helmet title={`${page.title} | ${siteTitle}`} />
+      <Box pad="small">
+        <ContentfulRichText json={page.content.json} />
+      </Box>
     </Layout>
   )
 }

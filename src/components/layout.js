@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import base from './base.css'
-import Container from './container'
-import Navigation from './navigation'
-import { Main, Grommet } from 'grommet'
+import Navigation from './Navigation'
+import { Main, Grommet, Header, Box } from 'grommet'
 import theme from './theme'
 
-const Layout = ({ children, location }) => {
+const Layout = ({ children, location, category, collection }) => {
   let rootPath = `/`
   if (typeof __PREFIX_PATHS__ !== `undefined` && __PREFIX_PATHS__) {
     rootPath = __PATH_PREFIX__ + `/`
@@ -14,10 +12,12 @@ const Layout = ({ children, location }) => {
 
   return (
     <Grommet theme={theme}>
-      <Main>
-        <Navigation />
-        {children}
-      </Main>
+      <Box width={{ max: '1200px' }} margin="auto">
+        <Header>
+          <Navigation category={category} collection={collection} />
+        </Header>
+        <Main>{children}</Main>
+      </Box>
     </Grommet>
   )
 }

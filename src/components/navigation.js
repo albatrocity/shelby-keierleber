@@ -1,5 +1,46 @@
 import React from 'react'
-import { Link } from 'gatsby'
-import { Nav } from 'grommet'
+import { useStaticQuery, graphql } from 'gatsby'
+import Link from './Link'
+import { Nav, Heading } from 'grommet'
 
-export default () => <Nav></Nav>
+const Navigation = ({ category }) => {
+  const data = useStaticQuery(graphql`
+    query SiteNav {
+      pages: allContentfulPage {
+        nodes {
+          id
+          title
+          slug
+        }
+      }
+      categories: allContentfulCategory {
+        nodes {
+          id
+          slug
+          title
+        }
+      }
+    }
+  `)
+  const { pages, categories } = data
+  return (
+    <Nav direction="row" pad="small">
+      {categories.nodes.map((x) => (
+        <Heading level={3} key={x.id}>
+          <Link
+            active={category && x.id === category.id}
+            path={`/${x.slug}`}
+            label={x.title}
+          />
+        </Heading>
+      ))}
+      {pages.nodes.map((x) => (
+        <Heading level={3} key={x.id}>
+          <Link path={`/${x.slug}`} label={x.title} />
+        </Heading>
+      ))}
+    </Nav>
+  )
+}
+
+export default Navigation

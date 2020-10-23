@@ -1,29 +1,23 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import { get, find } from 'lodash/fp'
+import { get, head } from 'lodash/fp'
+import Img from 'gatsby-image'
 
 import Layout from '../components/Layout'
+import ContentfulRichText from '../components/ContentfulRichText'
 import CollectionBrowser from '../components/CollectionBrowser'
 
-const ArtworkTemplate = ({ data, location, pageContext }) => {
+const CategoryTemplate = ({ data, location }) => {
   const category = get('contentfulCategory', data)
   const collections = get('collection', category)
-  const collection = find(
-    { slug: get('collectionSlug', pageContext) },
-    collections
-  )
-  const artwork = find(
-    { slug: pageContext.slug },
-    get('work', collection) || []
-  )
+  const collection = head(collections)
+  const artwork = head(get('work', collection) || [])
   const siteTitle = get('site.siteMetadata.title', data)
 
   return (
     <Layout location={location} category={category} collection={collection}>
-      <Helmet
-        title={`${artwork.title} | ${collection.title} | ${category.title} | ${siteTitle}`}
-      />
+      <Helmet title={`${category.title} | ${siteTitle}`} />
       <CollectionBrowser
         collections={collections}
         collection={collection}
@@ -34,16 +28,16 @@ const ArtworkTemplate = ({ data, location, pageContext }) => {
   )
 }
 
-export default ArtworkTemplate
+export default CategoryTemplate
 
-export const pageQuery = graphql`
-  query ArtworkCategoryBySlug($categorySlug: String!) {
+export const categoryQuery = graphql`
+  query CategoryBySlug($slug: String!) {
     site {
       siteMetadata {
         title
       }
     }
-    contentfulCategory(slug: { eq: $categorySlug }) {
+    contentfulCategory(slug: { eq: $slug }) {
       title
       id
       slug
