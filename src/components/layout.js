@@ -11,12 +11,18 @@ const Layout = ({ children, location, category, collection }) => {
   }
 
   return (
-    <Grommet theme={theme}>
-      <Box width={{ max: '1200px' }} margin="auto">
-        <Header>
-          <Navigation category={category} collection={collection} />
-        </Header>
-        <Main>{children}</Main>
+    <Grommet theme={theme} full>
+      <Box
+        width={{ max: '1200px' }}
+        margin="auto"
+        pad={{ horizontal: 'small' }}
+      >
+        <Box pad={{ top: 'medium' }} margin={{ bottom: 'small' }}>
+          <Header border={{ side: 'bottom', color: 'light-3', size: 'small' }}>
+            <Navigation category={category} collection={collection} />
+          </Header>
+        </Box>
+        <Box as="main">{children}</Box>
       </Box>
     </Grommet>
   )

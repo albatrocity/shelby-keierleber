@@ -24,9 +24,9 @@ const Navigation = ({ category }) => {
   `)
   const { pages, categories } = data
   return (
-    <Nav direction="row" pad="small">
+    <Nav direction="row">
       {categories.nodes.map((x) => (
-        <Heading level={3} key={x.id}>
+        <Heading level={3} margin="none" key={x.id}>
           <Link
             active={category && x.id === category.id}
             path={`/${x.slug}`}
@@ -35,7 +35,7 @@ const Navigation = ({ category }) => {
         </Heading>
       ))}
       {pages.nodes.map((x) => (
-        <Heading level={3} key={x.id}>
+        <Heading level={3} margin="none" key={x.id}>
           <Link path={`/${x.slug}`} label={x.title} />
         </Heading>
       ))}

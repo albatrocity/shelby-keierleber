@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 import { Box, Button, Heading, Text } from 'grommet'
 import Img from 'gatsby-image'
 import { get, head } from 'lodash/fp'
@@ -10,17 +10,6 @@ import Link from './Link'
 
 const ThumbContainer = styled.div`
   transform: ${(p) => (p.active ? 'scale(0.85)' : 'scale(1)')};
-`
-const ThumbnailNav = styled.div`
-  max-height: ${(p) => {
-    return p.active
-      ? `${
-          parseInt(p.theme.global.size.xsmall) +
-          parseInt(p.theme.global.edgeSize.small)
-        }px`
-      : '0'
-  }};
-  transition: max-height 0.4s ease-out;
 `
 
 const CollectionArtworkNav = ({
@@ -36,10 +25,15 @@ const CollectionArtworkNav = ({
   const nextHref = next ? `${collectionPath}/${get('slug', next)}` : undefined
   const prevHref = prev ? `${collectionPath}/${get('slug', prev)}` : undefined
   return (
-    <Box>
+    <Box gap="small">
       <Box direction="row" align="center" justify="between">
         {artwork && (
-          <Heading level={3} margin="none">
+          <Heading
+            level={4}
+            fontWeight={400}
+            margin="none"
+            style={{ fontStyle: 'italic' }}
+          >
             {artwork.title}
           </Heading>
         )}
@@ -52,16 +46,25 @@ const CollectionArtworkNav = ({
                 hoverIndicator={true}
                 icon={<FormPrevious />}
                 disabled={!prev}
+                size="small"
               />
             }
           />
-          <Text alignSelf="center">{String(currentIndex + 1)}</Text>
+          <Text size="small" alignSelf="center">
+            {String(currentIndex + 1)}
+          </Text>
           <Button
             onClick={() => dispatch({ type: 'TOGGLE_THUMBNAILS' })}
             hoverIndicator={true}
-            icon={<AppsRounded />}
+            align="center"
+            alignSelf="center"
+            justify="center"
+            icon={<AppsRounded size="18px" />}
+            size="small"
           />
-          <Text alignSelf="center">{String(collection.work.length)}</Text>
+          <Text size="small" alignSelf="center">
+            {String(collection.work.length)}
+          </Text>
           <Link
             path={nextHref}
             plain={true}
@@ -70,13 +73,19 @@ const CollectionArtworkNav = ({
                 hoverIndicator={true}
                 icon={<FormNext />}
                 disabled={!next}
+                size="small"
               />
             }
           />
         </Box>
       </Box>
-      <ThumbnailNav active={state.showThumbnails}>
-        <Box direction="row" gap="xsmall" wrap={true}>
+      {state.showThumbnails && (
+        <Box
+          direction="row"
+          gap="xsmall"
+          wrap={true}
+          margin={{ bottom: 'small' }}
+        >
           {(collection.work || []).map((x) => (
             <Box
               key={x.slug}
@@ -98,7 +107,7 @@ const CollectionArtworkNav = ({
             </Box>
           ))}
         </Box>
-      </ThumbnailNav>
+      )}
     </Box>
   )
 }

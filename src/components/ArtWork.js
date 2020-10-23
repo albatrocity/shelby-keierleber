@@ -8,7 +8,20 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
   return (
     <Box>
       {images.map((x) => (
-        <Img key={x.id} alt={title} fluid={x.large} />
+        <Box
+          height={{ max: '70vh' }}
+          overflow="hidden"
+          background="white"
+          key={x.id}
+        >
+          <Img
+            alt={title}
+            fluid={x.large}
+            objectFit="contain"
+            objectPosition="left"
+            imgStyle={{ objectFit: 'contain', objectPosition: 'left' }}
+          />
+        </Box>
       ))}
       {description && description.json && (
         <ContentfulRichText json={description.json} />

@@ -8,15 +8,18 @@ const borderColor = 'light-4'
 const InternalLink = styled(GatsbyLink)`
   text-decoration: none;
   color: inherit;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+
   :visited {
     color: inherit;
   }
   &:hover {
     text-decoration: none;
 
-    border-bottom-color: ${(p) =>
-      p.plain ? 'transparent' : p.theme.global.colors[borderColor]};
+    border-bottom-color: ${(p) => {
+      return p.plain ? 'transparent' : p.theme.global.colors[borderColor]
+    }};
 
     span {
       text-decoration: none;
@@ -26,13 +29,17 @@ const InternalLink = styled(GatsbyLink)`
     p.active
       ? `
     font-weight: bold;
-    border-bottom: 2px solid ${p.theme.global.colors[borderColor]};
+    border-bottom: 2px solid ${p.theme.global.colors['brand']};
   `
       : ''}
 `
 
-const Link = ({ path, label, active = false, plain }) => {
-  const Component = path ? InternalLink : Text
+const Link = ({ path, label, active = false, plain, color }) => {
+  const Component = path
+    ? InternalLink
+    : ({ children }) => (
+        <span style={{ fontFamily: 'inherit' }}>{children}</span>
+      )
   const theme = useContext(ThemeContext)
   return (
     <Component
@@ -42,10 +49,15 @@ const Link = ({ path, label, active = false, plain }) => {
       activeStyle={{
         borderBottom: plain
           ? undefined
-          : `2px solid ${theme.global.colors[borderColor]}`,
+          : `2px solid ${theme.global.colors['brand']}`,
       }}
     >
-      <Anchor as={'span'} label={label} />
+      <Anchor
+        style={{ fontFamily: 'inherit' }}
+        as={'span'}
+        color={active ? 'brand' : color}
+        label={label}
+      />
     </Component>
   )
 }
