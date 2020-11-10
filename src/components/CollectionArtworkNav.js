@@ -18,6 +18,7 @@ const CollectionArtworkNav = ({
   category,
 }) => {
   const { state, dispatch } = useLayout()
+  console.log('ARTWORK', artwork)
   const currentIndex = collection.work.indexOf(artwork)
   const next = collection.work[currentIndex + 1]
   const prev = collection.work[currentIndex - 1]
@@ -95,6 +96,7 @@ const CollectionArtworkNav = ({
             >
               <Link
                 path={`${collectionPath}/${x.slug}`}
+                active={artwork.slug === x.slug}
                 label={
                   <ThumbContainer active={artwork.slug === x.slug}>
                     <Img

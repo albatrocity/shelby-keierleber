@@ -1,12 +1,12 @@
 import React from 'react'
-import { Box } from 'grommet'
+import { Box, Carousel } from 'grommet'
 import Img from 'gatsby-image'
 
 import ContentfulRichText from './ContentfulRichText'
 
 const ArtWork = ({ slug, title, description, images = [] }) => {
   return (
-    <Box>
+    <Box gap="small">
       {images.map((x) => (
         <Box
           height={{ max: '70vh' }}
@@ -23,6 +23,7 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
           />
         </Box>
       ))}
+
       {description && description.json && (
         <ContentfulRichText json={description.json} />
       )}

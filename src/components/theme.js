@@ -43,6 +43,11 @@ export default {
       family: 'Archivo Narrow',
     },
   },
+  carousel: {
+    animation: {
+      duration: 0,
+    },
+  },
   button: {
     default: {
       padding: {
