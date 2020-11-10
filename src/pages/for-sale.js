@@ -7,7 +7,6 @@ import Shop from '../components/Shop'
 const ForSale = ({ location, data }) => {
   return (
     <Layout>
-      <Heading level={4}>For Sale</Heading>
       <Shop data={data} />
     </Layout>
   )
@@ -28,8 +27,11 @@ export const pageQuery = graphql`
           }
           images {
             id
-            fluid {
+            large: fluid {
               ...GatsbyContentfulFluid
+            }
+            thumb: fixed(width: 80, height: 80, cropFocus: CENTER) {
+              ...GatsbyContentfulFixed
             }
           }
         }

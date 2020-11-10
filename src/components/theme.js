@@ -54,10 +54,26 @@ export default {
     },
   },
   button: {
+    color: 'brand',
+    border: {
+      radius: '0',
+    },
+    size: {
+      large: {
+        border: {
+          radius: '0',
+        },
+      },
+    },
     default: {
       padding: {
         vertical: 'xsmall',
         horizontal: 'xsmall',
+      },
+    },
+    primary: {
+      background: {
+        color: 'brand',
       },
     },
   },

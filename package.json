@@ -9,6 +9,7 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^14.1.1",
     "@contentful/rich-text-types": "^14.1.1",
+    "@stripe/stripe-js": "^1.11.0",
     "babel-plugin-styled-components": "^1.11.1",
     "gatsby-image": "^2.3.4",
     "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
@@ -21,9 +22,11 @@
     "grommet": "^2.15.2",
     "grommet-icons": "^4.5.0",
     "lodash": "^4.17.15",
+    "netlify-cli": "^2.68.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
+    "sessionstorage": "^0.1.0",
     "sharp": "^0.25.2",
     "styled-components": "^5.2.0"
   },

@@ -14,19 +14,25 @@ import {
 
 import ContentfulRichText from './ContentfulRichText'
 
-const ShopItem = ({ description, images, title, price }) => {
+const ShopItem = ({ description, images, title, price, onCart, id }) => {
   return (
     <Card basis="40%" flex={true} margin={{ bottom: 'medium' }}>
       <CardHeader pad="small">
         <Heading level={3} margin="none">
           {title}
         </Heading>
-        <Button label={`Buy for $${price}`} primary hoverIndicator={true} />
+        <Button
+          label={`Buy for $${price}`}
+          primary
+          hoverIndicator={true}
+          role="link"
+          onClick={() => onCart({ id, description, images, title, price })}
+        />
       </CardHeader>
       <CardBody>
         <Carousel>
           {images.map((x) => (
-            <Img key={x.id} alt={title} fluid={x.fluid} />
+            <Img key={x.id} alt={title} fluid={x.large} />
           ))}
         </Carousel>
       </CardBody>
