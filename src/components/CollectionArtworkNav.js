@@ -18,7 +18,6 @@ const CollectionArtworkNav = ({
   category,
 }) => {
   const { state, dispatch } = useLayout()
-  console.log('ARTWORK', artwork)
   const currentIndex = collection.work.indexOf(artwork)
   const next = collection.work[currentIndex + 1]
   const prev = collection.work[currentIndex - 1]

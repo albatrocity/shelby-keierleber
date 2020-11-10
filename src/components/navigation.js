@@ -39,6 +39,9 @@ const Navigation = ({ category }) => {
           <Link path={`/${x.slug}`} label={x.title} />
         </Heading>
       ))}
+      <Heading level={3} margin="none">
+        <Link path={`/for-sale`} label="For Sale" />
+      </Heading>
     </Nav>
   )
 }

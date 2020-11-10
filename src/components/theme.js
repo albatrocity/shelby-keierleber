@@ -32,6 +32,11 @@ export default {
     xlarge: { size: '26px', height: '34px', maxWidth: '624px' },
     xxlarge: { size: '34px', height: '42px', maxWidth: '816px' },
   },
+  card: {
+    container: {
+      round: 'xsmall',
+    },
+  },
   heading: {
     font: {
       family: 'Archivo Narrow',
