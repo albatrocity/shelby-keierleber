@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { ResponsiveContext } from 'grommet'
 import { Box } from 'grommet'
 import Img from 'gatsby-image'
 
 import ContentfulRichText from './ContentfulRichText'
 
 const ArtWork = ({ slug, title, description, images = [] }) => {
+  const size = useContext(ResponsiveContext)
+  const isMobile = size === 'small'
   return (
     <Box>
       {images.map((x) => (
         <Box
-          height={{ max: '70vh' }}
+          height={isMobile ? 'auto' : { max: '70vh' }}
           overflow="hidden"
           background="white"
           key={x.id}

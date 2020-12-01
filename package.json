@@ -12,7 +12,7 @@
     "@stripe/stripe-js": "^1.11.0",
     "babel-plugin-styled-components": "^1.11.1",
     "gatsby-image": "^2.3.4",
-    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
+    "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-react-helmet": "^3.2.4",
     "gatsby-plugin-sharp": "^2.5.6",
     "gatsby-plugin-styled-components": "^3.3.14",
@@ -22,12 +22,14 @@
     "grommet": "^2.15.2",
     "grommet-icons": "^4.5.0",
     "lodash": "^4.17.15",
-    "netlify-cli": "^2.68.0",
+    "netlify-cli": "^2.69.0",
+    "nuka-carousel": "^4.7.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "sessionstorage": "^0.1.0",
     "sharp": "^0.25.2",
+    "stripe": "^8.126.0",
     "styled-components": "^5.2.0"
   },
   "devDependencies": {
@@ -59,7 +61,7 @@
     "url": "git+https://github.com/contentful-userland/gatsby-contentful-starter.git"
   },
   "scripts": {
-    "dev": "npm run develop",
+    "dev": "netlify dev",
     "develop": "gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",

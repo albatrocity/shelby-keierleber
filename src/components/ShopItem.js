@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import Img from 'gatsby-image'
 import PropTypes from 'prop-types'
 import {
   Box,
@@ -7,16 +6,21 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Carousel,
   Heading,
   Button,
 } from 'grommet'
 
 import ContentfulRichText from './ContentfulRichText'
+import SwiperShopItem from './SwiperShopItem'
 
 const ShopItem = ({ description, images, title, price, onCart, id }) => {
   return (
-    <Card basis="40%" flex={true} margin={{ bottom: 'medium' }}>
+    <Card
+      basis="45%"
+      flex={{ grow: 0, shrink: 1 }}
+      margin={{ bottom: 'medium' }}
+      focusIndicator={false}
+    >
       <CardHeader pad="small">
         <Heading level={3} margin="none">
           {title}
@@ -29,12 +33,8 @@ const ShopItem = ({ description, images, title, price, onCart, id }) => {
           onClick={() => onCart({ id, description, images, title, price })}
         />
       </CardHeader>
-      <CardBody>
-        <Carousel>
-          {images.map((x) => (
-            <Img key={x.id} alt={title} fluid={x.large} />
-          ))}
-        </Carousel>
+      <CardBody focusIndicator={false}>
+        <SwiperShopItem images={images} title={title} />
       </CardBody>
       <CardFooter pad="small">
         {description && (

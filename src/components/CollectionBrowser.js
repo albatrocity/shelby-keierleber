@@ -24,7 +24,7 @@ const CollectionBrowser = ({ collections, collection, category, artwork }) => {
           </Box>
         </Box>
       </Sidebar>
-      <Box flex={true}>
+      <Box flex={true} gap="medium">
         {collection && collection.work && collection.work.length && (
           <Box>
             <CollectionArtworkNav

@@ -39,18 +39,13 @@ module.exports = {
       options: contentfulConfig,
     },
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          {
-            family: `Archivo Narrow`,
-            variants: [`400`, `400i`, `600`, `600i`],
-          },
-          {
-            family: `Open Sans`,
-            variants: [`400`, `400i`, `600`, `600i`],
-          },
+          `Archivo Narrow\:400,400i,600,600i`,
+          `Open Sans\:400,400i,600,600i`,
         ],
+        display: 'swap',
       },
     },
   ],

@@ -1,32 +1,36 @@
-import React, { useContext, useCallback } from 'react'
+import React, { useContext, useCallback, useState } from 'react'
 import { find } from 'lodash/fp'
 import { Box, Layer } from 'grommet'
 import { loadStripe } from '@stripe/stripe-js'
 import { useStore } from '../contexts/useStore'
-
-const stripePromise = loadStripe(process.env.STRIPE_KEY)
 
 import ShopItem from './ShopItem'
 import Cart from './Cart'
 
 const Shop = ({ data }) => {
   const { state, dispatch } = useStore()
+  const [isSubmitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(null)
   const handleCheckout = useCallback(async () => {
-    const response = await fetch('/create-checkout-session', {
-      method: 'POST',
-      body: JSON.stringify(state.cartItems),
-      mode: 'cors',
-    })
-    const session = await response.json()
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    })
-    if (result.error) {
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
+    setSubmitting(true)
+    const stripe = await loadStripe(process.env.STRIPE_KEY)
+    try {
+      const response = await fetch('/.netlify/functions/create-session', {
+        method: 'POST',
+        body: JSON.stringify(state.cartItems),
+        mode: 'cors',
+      })
+      const session = await response.json()
+      dispatch({ type: 'CLEAR_CART' })
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      })
+    } catch (e) {
+      console.log('ERROR', e)
+      setSubmitting(false)
+      setError(e)
     }
-  }, [stripePromise, state.cartItems])
+  }, [state.cartItems])
 
   const handleCart = useCallback(
     (item) => {
@@ -51,13 +55,18 @@ const Shop = ({ data }) => {
       {state.cartItems.length > 0 && (
         <Layer
           modal={false}
+          responsive={false}
           position="top-right"
           round={false}
           onClickOutside={() => dispatch({ type: 'CLOSE_CART' })}
           style={{ boxShadow: '0 0 6px rgba(0,0,0,0.7)' }}
         >
           <Box width="medium" background="light-3">
-            <Cart onCheckout={handleCheckout} />
+            <Cart
+              onCheckout={handleCheckout}
+              isSubmitting={isSubmitting}
+              error={error}
+            />
           </Box>
         </Layer>
       )}

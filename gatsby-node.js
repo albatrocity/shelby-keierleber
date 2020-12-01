@@ -7,7 +7,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const pageTemplate = path.resolve('./src/templates/Page.js')
   const categoryTemplate = path.resolve('./src/templates/Category.js')
   const collectionTemplate = path.resolve('./src/templates/Collection.js')
-  const saleItemTemplate = path.resolve('./src/templates/SaleItem.js')
 
   const result = await graphql(`
     {
@@ -140,34 +139,6 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         slug: x.node.slug,
         categorySlug: x.node.category.slug,
-      },
-    })
-  })
-
-  const saleItemsResult = await graphql(`
-    {
-      allContentfulSaleItem(filter: { active: { eq: true } }) {
-        edges {
-          node {
-            id
-            slug
-          }
-        }
-      }
-    }
-  `)
-  if (saleItemsResult.errors) {
-    console.log(saleItemsResult.errors)
-    throw saleItemsResult.errors
-  }
-  const saleItems = saleItemsResult.data.allContentfulSaleItem.edges
-  saleItems.forEach((x, index) => {
-    const path = `/for-sale/${x.node.slug}`
-    createPage({
-      path,
-      component: saleItemTemplate,
-      context: {
-        slug: x.node.slug,
       },
     })
   })

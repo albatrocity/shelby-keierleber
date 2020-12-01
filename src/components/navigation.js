@@ -6,7 +6,7 @@ import { Nav, Heading } from 'grommet'
 const Navigation = ({ category }) => {
   const data = useStaticQuery(graphql`
     query SiteNav {
-      pages: allContentfulPage {
+      pages: allContentfulPage(filter: { showInNav: { eq: true } }) {
         nodes {
           id
           title

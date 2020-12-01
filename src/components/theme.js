@@ -34,7 +34,13 @@ export default {
   },
   card: {
     container: {
-      round: 'xsmall',
+      round: 'none',
+      border: {
+        size: '2px',
+        side: 'bottom',
+        color: 'black',
+      },
+      elevation: 'none',
     },
   },
   heading: {

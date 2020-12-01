@@ -14,7 +14,7 @@ const PageTemplate = ({ data, location }) => {
   return (
     <Layout location={location}>
       <Helmet title={`${page.title} | ${siteTitle}`} />
-      <Box>
+      <Box pad="medium">
         <ContentfulRichText json={page.content.json} />
       </Box>
     </Layout>

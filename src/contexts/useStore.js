@@ -25,6 +25,12 @@ const StoreReducer = (state, action) => {
         ...state,
         cartItems: filter((x) => x.id !== payload.id, state.cartItems),
       }
+    case 'CLEAR_CART':
+      session.removeItem('shelby-cartItems')
+      return {
+        ...state,
+        cartItems: [],
+      }
     case 'CLOSE_CART':
       return { ...state, cartOpen: false }
     case 'OPEN_CART':

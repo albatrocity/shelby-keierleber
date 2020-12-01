@@ -1,13 +1,22 @@
 import React, { useContext, useCallback, useMemo, memo } from 'react'
 import { find, reduce } from 'lodash/fp'
 import { Box, Heading, Button } from 'grommet'
+import styled from 'styled-components'
 
 import { useStore } from '../contexts/useStore'
 
 import ShopItem from './ShopItem'
 import CartItem from './CartItem'
+import Loading from './Loading'
 
-const Cart = ({ onCheckout }) => {
+const ItemCount = styled(Button)`
+  border-radius: 100%;
+  padding: 0;
+  height: 1.4em;
+  width: 1.4em;
+`
+
+const Cart = ({ onCheckout, isSubmitting, error }) => {
   const { state, dispatch } = useStore()
   const { cartOpen, cartItems } = state
 
@@ -61,21 +70,25 @@ const Cart = ({ onCheckout }) => {
         <Heading level={3} margin="none" color="brand">
           Cart
         </Heading>
-        <Button primary color="#000" label={cartItems.length} round={true} />
+        <ItemCount primary color="#000" label={cartItems.length} />
       </Box>
       {cartOpen && (
         <>
           <Box pad={{ horizontal: 'medium', bottom: 'medium' }}>
             {state.cartItems.map((x) => (
-              <CartItem onCart={handleCart} {...x} />
+              <CartItem key={x.id} onCart={handleCart} {...x} />
             ))}
           </Box>
           <Button
-            onClick={onCheckout}
+            onClick={() => onCheckout()}
+            disabled={isSubmitting}
             label={`$${totalPrice} - Checkout`}
+            reverse
+            icon={isSubmitting ? <Loading /> : null}
             primary
             size="large"
           />
+          {error && <Text color="status-critical">{error}</Text>}
         </>
       )}
     </Box>
