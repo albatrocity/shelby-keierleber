@@ -8,7 +8,9 @@ const CollectionNav = ({ collections = [], category, collection }) => {
   const size = useContext(ResponsiveContext)
   const isMobile = size === 'small'
   const getPath = (x) => `/${category.slug}/${x.slug}`
-
+  if (!collection) {
+    return null
+  }
   return (
     <>
       {isMobile ? (

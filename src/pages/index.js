@@ -14,7 +14,12 @@ const Home = ({ data, location }) => {
   const siteTitle = get('site.siteMetadata.title', data)
 
   return (
-    <Layout location={location} category={category} collection={collection}>
+    <Layout
+      location={location}
+      title={siteTitle}
+      category={category}
+      collection={collection}
+    >
       <CollectionBrowser
         collections={collections}
         collection={collection}
