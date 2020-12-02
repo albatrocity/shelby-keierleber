@@ -13,7 +13,7 @@ const Shop = ({ data }) => {
   const [error, setError] = useState(null)
   const handleCheckout = useCallback(async () => {
     setSubmitting(true)
-    const stripe = await loadStripe(process.env.STRIPE_KEY)
+    const stripe = await loadStripe(process.env.GATSBY_STRIPE_KEY)
     try {
       const response = await fetch('/.netlify/functions/create-session', {
         method: 'POST',
