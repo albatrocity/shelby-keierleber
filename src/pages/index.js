@@ -65,7 +65,7 @@ export const categoryQuery = graphql`
               ...GatsbyContentfulFluid
             }
             large: fluid(maxWidth: 2000, quality: 90) {
-              ...GatsbyContentfulFluid
+              ...GatsbyContentfulFluid_noBase64
             }
           }
         }

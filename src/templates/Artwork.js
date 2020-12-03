@@ -65,7 +65,7 @@ export const pageQuery = graphql`
               maxHeight: 200
               resizingBehavior: THUMB
             ) {
-              ...GatsbyContentfulFluid_noBase64
+              ...GatsbyContentfulFluid
             }
             large: fluid(maxWidth: 1500, quality: 85) {
               ...GatsbyContentfulFluid_noBase64
