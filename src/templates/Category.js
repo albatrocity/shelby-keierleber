@@ -18,7 +18,16 @@ const CategoryTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location} category={category} collection={collection}>
-      <Helmet title={`${category.title} | ${siteTitle}`} />
+      <Helmet title={`${category.title} | ${siteTitle}`}>
+        <meta
+          property="og:title"
+          content={`${category.title} | ${siteTitle}`}
+        />
+        <meta
+          property="og:image"
+          content={get('og.src', head(artwork.images))}
+        />
+      </Helmet>
       <CollectionBrowser
         collections={collections}
         collection={collection}
@@ -64,6 +73,14 @@ export const pageQuery = graphql`
             }
             large: fluid(maxWidth: 1500, quality: 85) {
               ...GatsbyContentfulFluid_noBase64
+            }
+            og: fixed(
+              width: 1200
+              height: 600
+              cropFocus: CENTER
+              resizingBehavior: FILL
+            ) {
+              src
             }
           }
         }
