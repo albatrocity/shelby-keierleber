@@ -9,8 +9,9 @@ import ContentfulRichText from '../components/ContentfulRichText'
 import CollectionBrowser from '../components/CollectionBrowser'
 
 const CategoryTemplate = ({ data, location }) => {
+  console.log('data', data)
   const category = get('contentfulCategory', data)
-  const collections = get('collection', category)
+  const collections = get('collections', category)
   const collection = head(collections)
   const artwork = head(get('work', collection) || [])
   const siteTitle = get('site.siteMetadata.title', data)
@@ -30,7 +31,7 @@ const CategoryTemplate = ({ data, location }) => {
 
 export default CategoryTemplate
 
-export const categoryQuery = graphql`
+export const pageQuery = graphql`
   query CategoryBySlug($slug: String!) {
     site {
       siteMetadata {
@@ -41,7 +42,7 @@ export const categoryQuery = graphql`
       title
       id
       slug
-      collection {
+      collections {
         slug
         title
         work {

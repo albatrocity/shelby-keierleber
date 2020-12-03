@@ -23,7 +23,7 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
             <Img
               alt={title}
               fluid={x.large}
-              backgroundColor="#ccc"
+              backgroundColor="#EDEDED"
               onStartLoad={() => setLoading(true)}
               onLoad={() => setLoading(false)}
               objectFit="contain"

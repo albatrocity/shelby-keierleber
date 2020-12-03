@@ -1,5 +1,6 @@
 const Promise = require('bluebird')
 const path = require('path')
+const { find, map, get } = require('lodash/fp')
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -10,7 +11,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const result = await graphql(`
     {
-      allContentfulArtwork {
+      artwork: allContentfulArtwork {
         edges {
           node {
             id
@@ -18,10 +19,16 @@ exports.createPages = async ({ graphql, actions }) => {
             collection {
               slug
               title
-              category {
-                slug
-                title
-              }
+            }
+          }
+        }
+      }
+      categories: allContentfulCategory {
+        edges {
+          node {
+            slug
+            collections {
+              slug
             }
           }
         }
@@ -34,20 +41,30 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  const artworks = result.data.allContentfulArtwork.edges
+  const artworks = result.data.artwork.edges
   artworks.forEach((artwork, index) => {
     const collection = artwork.node.collection
       ? artwork.node.collection[0]
       : null
+
+    const category = get(
+      'node',
+      find(
+        (x) => map('slug', x.node.collections).indexOf(collection.slug) > -1,
+        result.data.categories.edges
+      )
+    )
     if (collection) {
-      const path = `/${collection.category.slug}/${collection.slug}/${artwork.node.slug}/`
+      const path = `/${get('slug', category)}/${collection.slug}/${
+        artwork.node.slug
+      }/`
       createPage({
         path,
         component: artworkTemplate,
         context: {
-          slug: artwork.node.slug,
-          categorySlug: collection.category.slug,
-          collectionSlug: collection.slug,
+          slug: get('node.slug', artwork),
+          categorySlug: get('slug', category),
+          collectionSlug: get('slug', collection),
         },
       })
     }
@@ -112,14 +129,20 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const collectionsResult = await graphql(`
     {
-      allContentfulCollection {
+      collections: allContentfulCollection {
         edges {
           node {
             id
             slug
-            category {
+          }
+        }
+      }
+      categories: allContentfulCategory {
+        edges {
+          node {
+            slug
+            collections {
               slug
-              id
             }
           }
         }
@@ -130,15 +153,19 @@ exports.createPages = async ({ graphql, actions }) => {
     console.log(collectionsResult.errors)
     throw collectionsResult.errors
   }
-  const collections = collectionsResult.data.allContentfulCollection.edges
+  const collections = collectionsResult.data.collections.edges
   collections.forEach((x, index) => {
-    const path = `/${x.node.category.slug}/${x.node.slug}`
+    const category = find(
+      (z) => map('slug', z.node.collections).indexOf(x.node.slug) > -1,
+      collectionsResult.data.categories.edges
+    )
+    const path = `/${get('node.slug', category)}/${get('node.slug', x)}`
     createPage({
       path,
       component: collectionTemplate,
       context: {
-        slug: x.node.slug,
-        categorySlug: x.node.category.slug,
+        slug: get('node.slug', x),
+        categorySlug: get('node.slug', category),
       },
     })
   })

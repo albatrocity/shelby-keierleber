@@ -8,7 +8,8 @@ import CollectionBrowser from '../components/CollectionBrowser'
 
 const Home = ({ data, location }) => {
   const category = get('contentfulCategory', data)
-  const collections = get('collection', category)
+  console.log('category', category)
+  const collections = get('collections', category)
   const collection = head(collections)
   const artwork = head(get('work', collection) || [])
   const siteTitle = get('site.siteMetadata.title', data)
@@ -43,7 +44,7 @@ export const categoryQuery = graphql`
       title
       id
       slug
-      collection {
+      collections {
         slug
         title
         work {

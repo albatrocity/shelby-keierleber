@@ -8,7 +8,7 @@ import CollectionBrowser from '../components/CollectionBrowser'
 
 const ArtworkTemplate = ({ data, location, pageContext }) => {
   const category = get('contentfulCategory', data)
-  const collections = get('collection', category)
+  const collections = get('collections', category)
   const collection = find(
     { slug: get('collectionSlug', pageContext) },
     collections
@@ -47,7 +47,7 @@ export const pageQuery = graphql`
       title
       id
       slug
-      collection {
+      collections {
         slug
         title
         work {
