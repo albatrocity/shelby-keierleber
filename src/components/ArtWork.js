@@ -1,12 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { ResponsiveContext } from 'grommet'
-import { Box } from 'grommet'
+import { Box, Stack, Text } from 'grommet'
 import Img from 'gatsby-image'
 
 import ContentfulRichText from './ContentfulRichText'
+import Loading from './Loading'
 
 const ArtWork = ({ slug, title, description, images = [] }) => {
   const size = useContext(ResponsiveContext)
+  const [loading, setLoading] = useState(false)
   const isMobile = size === 'small'
   return (
     <Box>
@@ -17,13 +19,19 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
           background="white"
           key={x.id}
         >
-          <Img
-            alt={title}
-            fluid={x.large}
-            objectFit="contain"
-            objectPosition="left"
-            imgStyle={{ objectFit: 'contain', objectPosition: 'left' }}
-          />
+          <Stack anchor="center">
+            <Img
+              alt={title}
+              fluid={x.large}
+              backgroundColor="#ccc"
+              onStartLoad={() => setLoading(true)}
+              onLoad={() => setLoading(false)}
+              objectFit="contain"
+              objectPosition="left"
+              imgStyle={{ objectFit: 'contain', objectPosition: 'left' }}
+            />
+            {loading && <Loading size="large" />}
+          </Stack>
         </Box>
       ))}
       {description && description.json && (

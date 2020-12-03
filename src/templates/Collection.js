@@ -1,14 +1,14 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import { get, head, find } from 'lodash/fp'
+import { get, head, find, sortBy, reverse } from 'lodash/fp'
 
 import Layout from '../components/Layout'
 import CollectionBrowser from '../components/CollectionBrowser'
 
 const CollectionTemplate = ({ data, location, slug, pageContext }) => {
   const category = get('contentfulCategory', data)
-  const collections = get('collection', category)
+  const collections = reverse(sortBy('title', get('collection', category)))
   const collection = find({ slug: get('slug', pageContext) }, collections)
   const artwork = head(get('work', collection) || [])
   const siteTitle = get('site.siteMetadata.title', data)
@@ -59,10 +59,10 @@ export const categoryQuery = graphql`
               maxHeight: 200
               resizingBehavior: THUMB
             ) {
-              ...GatsbyContentfulFluid
+              ...GatsbyContentfulFluid_noBase64
             }
-            large: fluid(maxWidth: 2000, quality: 90) {
-              ...GatsbyContentfulFluid
+            large: fluid(maxWidth: 1500, quality: 85) {
+              ...GatsbyContentfulFluid_noBase64
             }
           }
         }

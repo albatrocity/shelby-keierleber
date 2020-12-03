@@ -1,4 +1,5 @@
 import React from 'react'
+import './loader.css'
 
 const centerStyle = ({ dimension }) => {
   return {

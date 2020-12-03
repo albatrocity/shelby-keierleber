@@ -59,10 +59,10 @@ export const categoryQuery = graphql`
               maxHeight: 200
               resizingBehavior: THUMB
             ) {
-              ...GatsbyContentfulFluid
+              ...GatsbyContentfulFluid_noBase64
             }
-            large: fluid(maxWidth: 2000, quality: 90) {
-              ...GatsbyContentfulFluid
+            large: fluid(maxWidth: 1500, quality: 85) {
+              ...GatsbyContentfulFluid_noBase64
             }
           }
         }
