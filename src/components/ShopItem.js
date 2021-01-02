@@ -37,9 +37,11 @@ const ShopItem = ({ description, images, title, price, onCart, id }) => {
         <SwiperShopItem images={images} title={title} />
       </CardBody>
       <CardFooter pad="small">
-        {description && (
-          <ContentfulRichText json={description.json} margin="none" />
-        )}
+        <Box>
+          {description && (
+            <ContentfulRichText json={description.json} margin="none" />
+          )}
+        </Box>
       </CardFooter>
     </Card>
   )
