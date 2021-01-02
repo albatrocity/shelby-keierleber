@@ -12,14 +12,27 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
   const isMobile = size === 'small'
   return (
     <Box>
-      {images.map((x) => (
-        <Box
-          height={isMobile ? 'auto' : { max: '70vh' }}
-          overflow="hidden"
-          background="white"
-          key={x.id}
-        >
-          <Stack anchor="center">
+      {images.map((x) => {
+        console.log(x)
+        return (
+          <Box
+            height={isMobile ? 'auto' : { max: '70vh' }}
+            overflow="hidden"
+            background="white"
+            style={{ position: 'relative' }}
+            key={x.id}
+          >
+            {loading && (
+              <Box
+                style={{ position: 'absolute', left: 0, top: 0, zIndex: 10 }}
+                fill
+                background="light-1"
+                align="center"
+                justify="center"
+              >
+                <Loading size="large" />
+              </Box>
+            )}
             <Img
               alt={title}
               fluid={x.large}
@@ -30,10 +43,9 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
               objectPosition="left"
               imgStyle={{ objectFit: 'contain', objectPosition: 'left' }}
             />
-            {loading && <Loading size="large" />}
-          </Stack>
-        </Box>
-      ))}
+          </Box>
+        )
+      })}
       {description && description.json && (
         <ContentfulRichText json={description.json} />
       )}
