@@ -34,7 +34,7 @@ const CollectionBrowser = ({ collections, collection, category, artwork }) => {
             />
           </Box>
         )}
-        <Box>{artwork && <ArtWork {...artwork} />}</Box>
+        <Box>{artwork && artwork.images && <ArtWork {...artwork} />}</Box>
       </Box>
     </Box>
   )
