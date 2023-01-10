@@ -8,7 +8,6 @@ import CollectionBrowser from '../components/CollectionBrowser'
 
 const Home = ({ data, location }) => {
   const category = get('contentfulCategory', data)
-  console.log('category', category)
   const collections = get('collections', category)
   const collection = head(collections)
   const artwork = head(get('work', collection) || [])

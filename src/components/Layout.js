@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import Navigation from './Navigation'
 import Link from './Link'
 import { Main, Grommet, Header, Box, Heading } from 'grommet'

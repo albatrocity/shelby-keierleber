@@ -20,9 +20,16 @@ const Navigation = ({ category }) => {
           title
         }
       }
+      activeSaleItems: allContentfulSaleItem(filter: { active: { eq: true } }) {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
   `)
-  const { pages, categories } = data
+  const { pages, categories, activeSaleItems } = data
   return (
     <Nav direction="row">
       {categories.nodes.map((x) => (
@@ -39,9 +46,11 @@ const Navigation = ({ category }) => {
           <Link path={`/${x.slug}`} label={x.title} />
         </Heading>
       ))}
-      <Heading level={3} margin="none">
-        <Link path={`/for-sale`} label="For Sale" />
-      </Heading>
+      {activeSaleItems.edges.length > 0 && (
+        <Heading level={3} margin="none">
+          <Link path={`/for-sale`} label="For Sale" />
+        </Heading>
+      )}
     </Nav>
   )
 }
