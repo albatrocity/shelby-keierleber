@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { ResponsiveContext } from 'grommet'
 import { Box, Stack, Text } from 'grommet'
-import Img from 'gatsby-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
+import { useContentfulImage } from 'gatsby-source-contentful/hooks'
 
 import ContentfulRichText from './ContentfulRichText'
 import Loading from './Loading'
@@ -14,6 +15,13 @@ const ArtWork = ({ slug, title, description, images = [] }) => {
     <Box>
       {images.map((x) => {
         console.log(x)
+        // const dynamicImage = useContentfulImage({
+        //   image: {
+        //     url: "//images.ctfassets.net/k8iqpp6u0ior/3BSI9CgDdAn1JchXmY5IJi/f97a2185b3395591b98008647ad6fd3c/camylla-battani-AoqgGAqrLpU-unsplash.jpg",
+        //     width: 2000,
+        //     height: 1000,
+        //   },
+        // })
         return (
           <Box
             height={isMobile ? 'auto' : { max: '70vh' }}

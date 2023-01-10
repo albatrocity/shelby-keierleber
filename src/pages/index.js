@@ -54,18 +54,8 @@ export const categoryQuery = graphql`
           }
           images {
             id
-            thumbnail: fluid(
-              maxWidth: 200
-              quality: 80
-              cropFocus: CENTER
-              maxHeight: 200
-              resizingBehavior: THUMB
-            ) {
-              ...GatsbyContentfulFluid
-            }
-            large: fluid(maxWidth: 2000, quality: 90) {
-              ...GatsbyContentfulFluid_noBase64
-            }
+            thumbnail: gatsbyImageData(layout: FULL_WIDTH)
+            large: gatsbyImageData(layout: FULL_WIDTH)
           }
         }
       }

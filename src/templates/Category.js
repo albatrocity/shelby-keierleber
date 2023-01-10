@@ -62,26 +62,9 @@ export const pageQuery = graphql`
           }
           images {
             id
-            thumbnail: fluid(
-              maxWidth: 200
-              quality: 80
-              cropFocus: CENTER
-              maxHeight: 200
-              resizingBehavior: THUMB
-            ) {
-              ...GatsbyContentfulFluid
-            }
-            large: fluid(maxWidth: 1500, quality: 85) {
-              ...GatsbyContentfulFluid_noBase64
-            }
-            og: fixed(
-              width: 1200
-              height: 600
-              cropFocus: CENTER
-              resizingBehavior: FILL
-            ) {
-              src
-            }
+            thumbnail: gatsbyImageData(layout: FULL_WIDTH)
+            large: gatsbyImageData(layout: FULL_WIDTH)
+            og: gatsbyImageData(layout: FULL_WIDTH)
           }
         }
       }
